@@ -1,0 +1,41 @@
+{
+  "name": "grunt-swagger-generate",
+  "description": "Grunt plugin for swagger generate",
+  "version": "0.1.0",
+  "homepage": "",
+  "author": {
+    "name": "dsnguyen",
+    "email": "sonnd@linagora.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://ci.linagora.com/dsnguyen/grunt-swagger-generate.git"
+  },
+  "bugs": {
+    "url": ""
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "/blob/master/LICENSE-MIT"
+    }
+  ],
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "dependencies": {
+    "swagger-jsdoc": "1.6.0"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "^0.9.2",
+    "grunt-contrib-clean": "^0.5.0",
+    "grunt-contrib-nodeunit": "^0.3.3",
+    "grunt": "~0.4.5"
+  },
+  "keywords": [
+    "gruntplugin"
+  ]
+}
