@@ -1,56 +1,42 @@
 /*
  * grunt-swagger-generate
- * 
- *
- * Copyright (c) 2017 dsnguyen
- * Licensed under the MIT license.
  */
 
 'use strict';
 
+var path = require('path');
+var fs = require('fs');
+var swaggerJSDoc = require('swagger-jsdoc');
+
 module.exports = function(grunt) {
-
-  var path = require('path');
-  var fs = require('fs');
-  var swaggerJSDoc = require('swagger-jsdoc');
-
-  grunt.registerMultiTask('swagger_generate', 'Grunt plugin for swagger generate', function() {
+  grunt.registerTask('swagger_generate', 'Grunt plugin for swagger generate', function() {
     var options = this.options();
-    var swaggerFile = options.paths;
-    var api = [];
-    var swaggerOutputFile = path.normalize(options.baseDir + options.outPut);
-    swaggerFile.forEach(function(item) {
-      api.push(path.normalize(options.baseDir + item));
+    var swaggerFiles = options.paths;
+    var info = options.info;
+    var host = options.host;
+    var securityDefinitions = options.securityDefinitions;
+    var swaggerOutputFile = path.join(options.baseDir, options.swaggerOutputFile);
+    var apis = swaggerFiles.map(function(file) {
+      return path.join(options.baseDir, file);
     });
 
     var swagger_options = {
       swaggerDefinition: {
         swagger: '2.0',
-        info: {
-        title: 'OpenPaaS',
-        description: 'OpenPaaS API',
-        version: '0.1'
-        },
-        host: 'localhost:8080',
+        info: info,
+        host: host,
         basePath: '/api/v0.1',
         consumes: ['application/json'],
         produces: ['application/json']
       },
-      apis: []
+      apis: apis
     };
-    swagger_options['apis'].push(...api);
     var swaggerSpec = swaggerJSDoc(swagger_options);
 
-    swaggerSpec.securityDefinitions = {
-      openpaas_auth: {
-        type: 'oauth2',
-        description: 'OAuth2 security scheme for the OpenPaaS API',
-        flow: 'password',
-        tokenUrl: 'localhost:8080/oauth/token'
-      }
-    };
+    swaggerSpec.securityDefinitions = securityDefinitions;
 
     try {
+      grunt.log.ok('API Specification file ' + swagger_options.apis + ' generated.');
       fs.writeFileSync(swaggerOutputFile, JSON.stringify(swaggerSpec));
       grunt.log.ok('API Specification file ' + swaggerOutputFile + ' generated.');
     } catch (error) {

@@ -26,13 +26,27 @@ grunt.initConfig({
   swagger_generate: {
     options: {
       baseDir: __dirname,
-      outPut: '/doc/swagger.json',
+      swaggerOutputFile: '/doc/swagger.json',
+      info: {
+        title: 'OpenPaaS',
+        description: 'OpenPaaS API',
+        version: '0.1'
+      },
+      host: 'localhost:8080',
+      securityDefinitions: {
+        auth: {
+          type: 'oauth2',
+          description: 'OAuth2 security scheme for the OpenPaaS API',
+          flow: 'password',
+          tokenUrl: 'localhost:8080/oauth/token'
+        }
+      },
       paths: [
-        '/backend/webserver/api/*.js',
-        '/backend/webserver/api/*/*.js',
-        '/modules/*/backend/webserver/**/*.js'
+        'backend/webserver/api/*.js',
+        'backend/webserver/api/*/*.js',
+        'modules/*/backend/webserver/**/*.js'
       ]
     }
-  },
+  }
 });
 ```
