@@ -26,7 +26,7 @@ grunt.initConfig({
   swagger_generate: {
     options: {
       baseDir: __dirname,
-      swaggerOutputFile: '/doc/swagger.json',
+      swaggerOutputFile: 'doc/swagger.json',
       info: {
         title: 'OpenPaaS',
         description: 'OpenPaaS API',
