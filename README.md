@@ -1,3 +1,5 @@
+![Archived](https://img.shields.io/badge/Current_Status-archived-blue?style=flat)
+
 # grunt-swagger-generate
 
 > Grunt plugin for swagger generate
